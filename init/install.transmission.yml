@@ -1,0 +1,18 @@
+- hosts: all
+  sudo: yes
+
+  tasks:
+  - name: Install python-software-properties
+    apt: name=python-software-properties
+
+  - name: Add repo transmission
+    apt_repository: repo='ppa:transmissionbt/ppa'
+
+  - name: Update repo
+    apt: update_cache=yes    
+
+  - name: Install transmission-daemon
+    apt: name=transmission-daemon
+
+  - name: Install transmission
+    apt: name=transmission

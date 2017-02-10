@@ -1,0 +1,31 @@
+- hosts: all
+  sudo: yes
+
+  tasks:
+  - name: Add repo webupd8team/java
+    apt_repository: repo='ppa:webupd8team/java'
+
+  - name: Add repo git-core 
+    apt_repository: repo='ppa:git-core/ppa'
+
+  - name: Update repository
+    apt: update_cache=yes
+
+  - name: Install sofware
+    apt: name={{ item }} state=present
+    with_items:
+    - htop
+    - mc
+    - vim
+    - python-pip
+    - python-dev
+    - build-essential
+    - git
+    - postgresql
+    - zsh
+
+  - name: Automatically select the Oracle License
+    shell: echo debconf shared/accepted-oracle-license-v1-1 select true | sudo debconf-set-selections  
+
+  - name: Install JRE
+    apt: pkg=oracle-java8-installer state=latest update-cache=yes force=yes

@@ -1,0 +1,13 @@
+- hosts: all
+  sudo: yes
+
+  tasks:
+  - name: Add repo git-core
+    apt_repository: repo='ppa:git-core/ppa'
+
+  - name: Update ppa:git-core/ppa
+    apt: update_cache=yes    
+
+  - name: Install git
+    apt: name=git state=present
+	when: ansible_distribution == 'Debian'

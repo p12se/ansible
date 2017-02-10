@@ -1,0 +1,11 @@
+[all:vars]
+ansible_sudo_pass=pass
+[exp]
+192.168.1.100 ansible_ssh_user=user ansible_ssh_pass=pass
+192.168.1.106 ansible_ssh_user=user ansible_ssh_pass=pass
+[build]
+address ansible_ssh_user=user ansible_ssh_pass=pass
+[hawk]
+address ansible_ssh_user=root ansible_ssh_pass=pass
+[work]
+address ansible_ssh_user=user ansible_ssh_pass=pass

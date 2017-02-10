@@ -1,0 +1,15 @@
+- hosts: hawk
+  sudo: yes
+
+  tasks:
+  - name: Add repo webupd8team/java
+    apt_repository: repo='ppa:webupd8team/java'
+
+  - name: Update ppa:webuupd8team/java
+    apt: update_cache=yes    
+
+  - name: Automatically select the Oracle License
+    shell: echo debconf shared/accepted-oracle-license-v1-1 select true | sudo debconf-set-selections  
+
+  - name: Install JRE
+    apt: pkg=oracle-java8-installer state=latest update-cache=yes force=yes

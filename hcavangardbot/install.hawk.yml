@@ -1,0 +1,13 @@
+- hosts: all
+  sudo: yes
+  vars:
+    pathAppFolder: '/var/bottelegramhcavangard'
+    archiveName: '/tmp/bottelegramhcavangard.tar.gz'
+
+  tasks:
+  - name: Copy dump database
+    copy: src={{archiveName}} dest={{archiveName}}
+
+  - name: archive app folder
+    unarchive: src={{archiveName}} dest=/ copy=no
+    #shell: tar -zxvf {{archiveName}} /var/

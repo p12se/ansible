@@ -1,0 +1,32 @@
+- hosts: all
+  sudo: yes
+
+  vars:
+    dumpDataBaseFile: '/tmp/hawks.gz'
+    dumpRoleFile: '/tmp/role.gz'
+    baseName: 'hawks'
+
+  tasks:
+  - name: Dump database hawks
+    shell: pg_dump {{baseName}} --clean | gzip -c > {{dumpDataBaseFile}}
+    become: yes
+    become_user: postgres
+    become_method: sudo
+
+  - name: Dump role database
+    shell: pg_dumpall -g --clean | gzip -c > {{dumpRoleFile}}
+    become: yes
+    become_user: postgres
+    become_method: sudo 
+
+  - name: Fetch dump database
+    fetch: dest=/tmp/ src={{dumpDataBaseFile}} flat=yes
+  
+  - name: Fetch dump role
+    fetch: dest=/tmp/ src={{dumpRoleFile}} flat=yes
+  
+  - name: Remove dump file
+    shell: rm {{dumpDataBaseFile}}  
+
+  - name: Remove dump role file
+    shell: rm {{dumpRoleFile}}

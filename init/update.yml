@@ -1,0 +1,9 @@
+- hosts: exp
+  sudo: yes
+
+  tasks:
+  - name: Update system
+    apt: upgrade=dist
+
+  - name: Reboot
+    command: shutdown -r 0

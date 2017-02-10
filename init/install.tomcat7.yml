@@ -1,0 +1,6 @@
+- hosts: all
+  sudo: yes
+
+  tasks:
+  - name: Install tomcat7
+    apt: name=tomcat7 state=present

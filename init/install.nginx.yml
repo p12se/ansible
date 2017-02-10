@@ -1,0 +1,17 @@
+- hosts: all
+  sudo: yes
+
+  tasks:
+  - name: add key nginx_signing.key
+    apt_key: url=http://nginx.org/keys/nginx_signing.key state=present  
+
+  - name: Add repo nginx
+    apt_repository: repo='deb http://nginx.org/packages/debian/ wheezy nginx' state=present
+    apt_repository: repo='deb-src http://nginx.org/packages/debian/ wheezy nginx' state=present
+    when: ansible_distribution == "Debian"
+
+  - name: Update repo
+    apt: update_cache=yes    
+
+  - name: Install nginx
+    apt: name=nginx state=present

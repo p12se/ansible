@@ -1,0 +1,12 @@
+- hosts: all
+  sudo: yes
+  vars:
+    pathAppFolder: '/var/bottelegramhcavangard'
+    archiveName: '/tmp/bottelegramhcavangard.tar.gz'
+
+  tasks:
+  - name: archive app folder
+    shell: tar -zcvf {{archiveName}} {{pathAppFolder}} 
+
+  - name: Fetch dump database
+    fetch: dest=/tmp/ src={{archiveName}} flat=yes
